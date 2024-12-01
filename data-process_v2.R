@@ -73,6 +73,16 @@ daily_ride_count <- bike_trips_df %>%
   group_by(day_of_week, member_casual) %>%
   summarise(total_rides = n())
 
+daily_ride_count <- bike_trips_df %>%
+  mutate(hour_of_day = hour(started_at)) %>%
+  group_by(hour_of_day, member_casual) %>%
+  summarise(daily_ride_count = n())
+
+ride_count_by_hour <- bike_trips_df %>%
+  mutate(hour_of_day = hour(started_at)) %>%
+  group_by(hour_of_day, member_casual) %>%
+  summarise(ride_count = n(), .groups = "drop")
+
 # Load scales
 library(scales)
 
@@ -119,6 +129,16 @@ ggplot(bike_trips_df, aes(x = season, fill = member_casual)) +
   labs(title = "Ride Frequency by Season & Membership Type",
        x = "Season",
        y = "Count of Rides") +
+  theme_minimal() +
+  scale_y_continuous(labels = label_number(scale_cut = scales::cut_short_scale())) +
+  theme(legend.title = element_blank())
+
+# LINE CHART ANALYSIS THE TOTAL RIDES BY HOUR & MEMBERSHIP TYPE
+ggplot(ride_count_by_hour, aes(x = hour_of_day, y = ride_count, color = member_casual, group = member_casual)) +
+  geom_line(linewidth = 1) +
+  labs(title = "Ride Count by Hour of the Day & Membership Type",
+       x = "Hour of the Day",
+       y = "Ride Count") +
   theme_minimal() +
   scale_y_continuous(labels = label_number(scale_cut = scales::cut_short_scale())) +
   theme(legend.title = element_blank())
