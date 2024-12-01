@@ -95,7 +95,7 @@ ggplot(daily_ride_count, aes(x = day_of_week, y = total_rides, fill = member_cas
   scale_y_continuous(labels = label_number(scale_cut = scales::cut_short_scale())) +
   theme_minimal()
 
-# LINE CHART OF AVERAGE RIDE LENGTH BY MEMBERSHIP TYPE & WEEK DAY
+# LINE CHART OF AVERAGE RIDE LENGTH BY WEEK DAY & MEMBERSHIP TYPE 
 ggplot(daily_ride_length, aes(x = day_of_week, y = avg_ride_length, color = member_casual, group = member_casual)) +
   geom_line(linewidth = 1) +
   labs(title = "Average Ride Length by Week Day & Membership Type",
@@ -104,7 +104,7 @@ ggplot(daily_ride_length, aes(x = day_of_week, y = avg_ride_length, color = memb
   theme_minimal() +
   theme(legend.title = element_blank())
 
-# LINE CHART OF AVERAGE RIDE LENGTH BY MEMBERSHIP TYPE & MONTH
+# LINE CHART OF AVERAGE RIDE LENGTH & MONTH & MEMBERSHIP TYPE 
 ggplot(monthly_ride_length, aes(x = month, y = avg_ride_length, color = member_casual, group = member_casual)) +
   geom_line(linewidth = 1) +
   labs(title = "Average Ride Length by Month & Membership type",
